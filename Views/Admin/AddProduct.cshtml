@@ -1,0 +1,79 @@
+@model FastFood.Models.Product
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-secondary shadow">
+                <div class="card-header border-secondary">
+                    <h3 class="text-warning mb-0">Add New Pizza</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label asp-for="Id" class="form-label text-warning">Product Id</label>
+                            <input asp-for="Id" class="form-control bg-secondary text-white border-0" placeholder="P02" required />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label text-warning">Product Name</label>
+                            <input asp-for="Name" class="form-control bg-secondary text-white border-0" placeholder="e.g. Pepperoni Feast" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Category" class="form-label text-warning">Category</label>
+                            <select asp-for="Category" class="form-select bg-secondary text-white border-0">
+                                <option value="Pizza">Pizza</option>
+                                <option value="Sides">Sides</option>
+                                <option value="Drinks">Drinks</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label text-warning">Price (Rs.)</label>
+                            <input asp-for="Price" type="number" step="0.01" class="form-control bg-secondary text-white border-0" placeholder="15.99" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label text-warning">Description</label>
+                            <input asp-for="Description" class="form-control bg-secondary text-white border-0" placeholder="e.g.Delicious  Pepperoni Feast" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-warning">Product Image</label>
+                            <input type="file" name="imageFile" class="form-control bg-secondary text-white border-0" accept="image/*" />
+                            <small class="text-muted">Recommended size: 500x500px</small>
+                        </div>
+
+                        @* <div class="d-grid gap-2 mt-4">
+                            <a asp-action="ManageMenu" class="btn btn-outline-light">Submit</a>
+                            <a asp-action="ManageMenu" class="btn btn-outline-light">Cancel</a>
+                        </div> *@
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                Submit
+                            </button>
+                            <a asp-action="ManageMenu" class="btn btn-outline-light">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-warning">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-warning">Confirm Submission</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your Product Added to Menu
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                 <a asp-action="ManageMenu" class="btn btn-warning fw-bold">Done</a> 
+            </div>
+        </div>
+    </div>
+</div>

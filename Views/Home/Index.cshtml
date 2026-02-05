@@ -1,0 +1,111 @@
+﻿@model IEnumerable<FastFood.Models.Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Delicious Pizza Venture</h1>
+        <p class="lead mb-4">Order your favorite  pizzas with just a few clicks.</p>
+        <a asp-controller="Frontend" asp-action="Index" class="btn btn-primary btn-lg me-2">Order Now</a>
+        <a href="#hero-section" class="btn btn-outline-light btn-lg">Special Deals</a>
+    </div>
+</section>
+
+<section class="py-5 bg-light text-dark">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="feature-icon"><i class="bi bi-truck"></i></div>
+                <h4>Fast Delivery</h4>
+                <p class="text-muted">Get your food delivered to your doorstep in under 30 minutes.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-icon"><i class="bi bi-currency-dollar"></i></div>
+                <h4>Affordable Prices</h4>
+                <p class="text-muted">Enjoy delicious meals without breaking the bank.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-icon"><i class="bi bi-star"></i></div>
+                <h4>Quality Ingredients</h4>
+                <p class="text-muted">We use only the freshest ingredients in all our dishes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="hero-section" >
+    <div class="container">
+        <h2 class="section-title">Popular Items</h2>
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card food-card shadow-sm border-0 h-100">
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">@item.Name</h5>
+                                <p class="card-text text-muted small">@item.Description</p>
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-primary fs-5">Rs.@item.Price</span>
+                                    
+                                    <form asp-controller="Frontend" asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <button type="submit" class="btn btn-primary px-3">
+                                            <i class="bi bi-cart-plus me-1"></i> Add
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p class="text-muted">No featured items available right now. Check the full menu!</p>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-4">
+            <a asp-controller="Home" asp-action="Intro" class="btn btn-outline-primary fw-bold">Go Back</a>
+            <a asp-controller="Frontend" asp-action="Index" class="btn btn-outline-primary fw-bold">View Full Menu</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 how-it-works-section ">
+    <div class="container">
+        <h2 class="section-title  mb-5">How It Works</h2>
+        
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-dark text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-search" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Browse Menu</h4>
+                <p class="text-muted">Explore our delicious Pizzas.</p>
+            </div>
+
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-dark text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-cart" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Place Order</h4>
+                <p class="text-muted">Add items to your cart and proceed to checkout.</p>
+            </div>
+
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-dark text-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-truck" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Fast Delivery</h4>
+                <p class="text-muted">Track your order and enjoy your meal in no time.</p>
+            </div>
+        </div>
+    </div>
+</section>

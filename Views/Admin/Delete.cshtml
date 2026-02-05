@@ -1,0 +1,45 @@
+@model FastFood.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-danger shadow-lg">
+                <div class="card-header bg-danger text-center">
+                    <h3 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> DELETE PRODUCT?</h3>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <p class="lead">Are you sure you want to remove this item from the menu?</p>
+                    
+                    <div class="product-preview p-3 mb-4 rounded bg-black border border-secondary">
+                        <h4 class="text-warning">@Model.Name</h4>
+                        <p class="text-secondary mb-0">Price: Rs.@Model.Price</p>
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg fw-bold rounded-pill">
+                                YES, DELETE IT
+                            </button>
+                            <a asp-action="ManageMenu" class="btn btn-outline-secondary rounded-pill">
+                                NO, GO BACK
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-preview {
+        background-color: #000;
+        transition: 0.3s;
+    }
+</style>

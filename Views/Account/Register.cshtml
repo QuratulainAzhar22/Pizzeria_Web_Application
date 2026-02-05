@@ -1,0 +1,59 @@
+@model FastFood.Models.User
+<div class="d-flex align-items-center justify-content-between vh-10 bg-black text-white px-3">
+    <a href="/Home/Intro" class="btn btn-outline-dark btn-sm"> Go Back</a>
+
+    <h1 class="m-0 flex-grow-1 text-center" style="margin-left: -80px;">Pizzeria</h1>
+
+    <div style="width: 80px;"></div>
+</div>
+<div class="d-flex align-items-center justify-content-center vh-100 bg-black">
+    
+    <div class="card bg-dark text-white p-4 shadow-lg border-secondary" style="width: 400px;">
+        <h2 class="text-warning text-center fw-bold mb-4">JOIN THE FEAST</h2>
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input asp-for="FullName" class="form-control bg-black text-white border-secondary" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control bg-black text-white border-secondary" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control bg-black text-white border-secondary" required />
+            </div>
+            <button type="submit" class="btn btn-warning w-100 fw-bold mt-3">CREATE ACCOUNT</button>
+            <p class="text-center mt-3 small">Already a member? <a asp-action="Login" class="text-warning">Login</a></p>
+        </form>
+    </div>
+</div>
+
+<section class="py-5 bg-black text-white">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-search" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Browse Menu</h4>
+                <p class="text-muted">Explore our delicious Pizzas.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-cart" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Place Order</h4>
+                <p class="text-muted">Add items to your cart and proceed to checkout.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-truck" style="font-size: 2rem;"></i>
+                </div>
+                <h4>Fast Delivery</h4>
+                <p class="text-muted">Track your order and enjoy your meal in no time.</p>
+            </div>
+        </div>
+    </div>
+</section>

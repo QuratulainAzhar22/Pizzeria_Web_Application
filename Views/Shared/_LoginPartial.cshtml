@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var userEmail = Context.Session.GetString("UserEmail");
+}
+
+<ul class="navbar-nav">
+@if (!string.IsNullOrEmpty(userEmail))
+{
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Frontend" asp-action="OrderHistory"><b>Hello @userEmail!</b> </a>
+    </li>
+    <li class="nav-item">
+        <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="nav-link btn btn-link text-light"><b>Logout</b></button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register"><b>Register</b></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login"><b>Login</b></a>
+    </li>
+}
+</ul>

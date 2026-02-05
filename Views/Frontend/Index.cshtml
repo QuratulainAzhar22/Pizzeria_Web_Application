@@ -1,0 +1,98 @@
+@model IEnumerable<FastFood.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Menu";
+}
+
+<div class="container py-5">
+    <div class="jumbotron bg-dark text-white text-center py-5">
+    <h1>Welcome to PIZZERIA!</h1>
+    
+    @if (string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
+    {
+        <p class="text-warning fw-bold">Login to start your delicious journey.</p>
+    }
+    else
+    {
+        <p class="text-success">Welcome back, @Context.Session.GetString("UserName")!</p>
+    }
+</div>
+    <div class="d-flex justify-content-end mb-2 gap-2">
+        <a asp-controller="Frontend" asp-action="OrderHistory" class="btn btn-outline-info rounded-pill px-4">
+            <i class="bi bi-clock-history me-1"></i> History
+        </a>
+        <a asp-controller="Frontend" asp-action="Cart" class="btn btn-warning rounded-pill px-4 fw-bold">
+            <i class="bi bi-cart3 me-1"></i> My Cart    
+        </a>
+    </div>
+    <h1 class="section-title mb-4">OUR MENU
+        <style>
+            .navbar-nav { display: inline; }
+        </style>
+    </h1>
+    <div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Index" method="get">
+                <input type="text" name="searchTerm" value="@ViewBag.CurrentSearch" placeholder="Search pizza..." />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+    
+    <div class="row">
+        <div class="row mt-5">
+    @if (!Model.Any())
+    {
+        <div class="text-center text-secondary">
+            <h3>No products found for "@ViewBag.SearchTerm"</h3>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 bg-dark text-white border-0 shadow-lg product-card" style="border-radius: 15px; overflow: hidden; background: #1a1a1a !important;">
+                    
+                    <div class="position-relative overflow-hidden" style="height: 250px;">
+                        <img src="@item.ImageUrl" 
+                             class="card-img-top img-fluid h-100" 
+                             alt="@item.Name" 
+                             style="object-fit: cover; transition: transform 0.3s ease;">
+                        
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-warning text-dark fw-bold">
+                            @item.Category
+                        </span>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title text-warning fw-bold mb-0">@item.Name</h5>
+                            <span class="h5 text-white mb-0">Rs.@item.Price</span>
+                        </div>
+                        <p class="card-text text-secondary small">
+                            @item.Description
+                        </p>
+                        
+                        <div class="mt-auto">
+                            <form asp-controller="Frontend" asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <button type="submit" class="btn btn-primary px-3">
+                                            <i class="bi bi-cart-plus me-1"></i> Add To Cart
+                                        </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Back to HomePage</a>    
+    </div>
+</div>

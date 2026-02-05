@@ -1,0 +1,11 @@
+@model IEnumerable<FastFood.Models.Product>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Price</td>
+        <td>
+            <button onclick="addToCart(@item.Id)">Add to Cart</button>
+        </td>
+    </tr>
+}

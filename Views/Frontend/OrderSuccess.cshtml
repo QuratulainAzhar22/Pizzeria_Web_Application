@@ -1,0 +1,51 @@
+<div class="container text-center mt-5 py-5 bg-dark text-white rounded shadow border-warning border">
+
+    <!-- Success Icon -->
+    <div class="mb-3">
+        <i class="bi bi-check-circle-fill text-warning" style="font-size: 5rem;"></i>
+    </div>
+    
+    <h1 class="display-3 text-warning">✔ Success!</h1>
+    <p class="lead">Your pizza is being prepared as we speak 🍕</p>
+
+    <!-- Progress Bar -->
+    <div class="progress bg-secondary mb-4 mx-auto" style="height: 10px; max-width: 300px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 45%"></div>
+    </div>
+
+    <!-- Order ID -->
+    <div class="my-3">
+        <span class="h4">
+            Order ID: <span class="text-info">#@ViewContext.RouteData.Values["id"]</span>
+        </span>
+    </div>
+
+    <!-- Delivery Info Card -->
+    <div class="card bg-black text-white border-warning mt-4 mx-auto shadow" style="max-width: 450px;">
+        <div class="card-body text-start">
+
+            <h5 class="text-warning mb-3">🚴 Rider Details</h5>
+            <p class="mb-1"><strong>Name:</strong> Ali Khan</p>
+            <p class="mb-3"><strong>Phone:</strong> +92 300 1234567</p>
+
+            <h5 class="text-warning mb-3">📍 Delivery Details</h5>
+            <p class="mb-1"><strong>Address:</strong> Phase 1, GreenLand Housing Society, Lahore</p>
+            <p class="mb-1"><strong>Estimated Time:</strong> 45 Minutes</p>
+
+            <h5 class="text-warning mt-3">💰 Payment Method</h5>
+            <p class="mb-0 text-success"><strong>Cash on Delivery</strong></p>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-5">
+        <a asp-action="Index" class="btn btn-warning fw-bold px-5 rounded-pill">
+            ORDER MORE
+        </a>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-light px-4 rounded-pill ms-2">
+            HOME
+        </a>
+    </div>
+
+</div>

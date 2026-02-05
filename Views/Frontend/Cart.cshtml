@@ -1,0 +1,81 @@
+@model IEnumerable<FastFood.Models.CartItem>
+@{
+    float subtotal = Model.Sum(x => (x.Quantity * (x.Product?.Price ?? 0)));
+    float deliveryFee = 0.3f;
+    float grandTotal = subtotal + deliveryFee;
+}
+<div class="container mt-5">
+    <h2 class="text-warning fw-bold mb-4"><i class="bi bi-cart3"></i> Your Shopping Cart</h2>
+    
+    @if (!Model.Any())
+    {
+        <div class="alert alert-dark text-center border-secondary py-5">
+            <h4>Your cart is empty!</h4>
+            <a asp-action="Index" class="btn btn-warning mt-3">Go to Menu</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead>
+                    <tr class="text-warning">
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <div class="d-flex align-items-center">
+                <div class="quantity-picker me-3 d-flex align-items-center bg-secondary rounded-pill px-2">
+                    <form asp-action="UpdateQuantity" method="post" class="m-0">
+                        <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                        <input type="hidden" name="change" value="-1" />
+                        <button type="submit" class="btn btn-link text-white p-1 shadow-none">
+                            <i class="bi bi-dash-circle-fill"></i>
+                        </button>
+                    </form>
+
+                    <span class="mx-2 fw-bold" style="min-width: 20px; text-align: center;">@item.Quantity</span>
+
+                    <form asp-action="UpdateQuantity" method="post" class="m-0">
+                        <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                        <input type="hidden" name="change" value="1" />
+                        <button type="submit" class="btn btn-link text-white p-1 shadow-none">
+                            <i class="bi bi-plus-circle-fill"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <span>@item.Product?.Name</span>
+            </div>
+        </td>
+        <td class="text-warning fw-bold">Rs.@(item.Product?.Price * item.Quantity)</td>
+        <td>
+            <form asp-action="RemoveFromCart" method="post">
+                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2">Remove</button>
+            </form>
+        </td>
+    </tr>
+}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-end mt-4 text-white">
+            <p class="mb-1">Subtotal: <span class="fw-bold">Rs.@subtotal.ToString("0.00")</span></p>
+            <p class="mb-1">Delivery Charge: <span class="fw-bold">Rs.@deliveryFee.ToString("0.00")</span></p>
+            <h3 class="text-warning">Total: Rs.@grandTotal.ToString("0.00")</h3>
+    
+            <form asp-action="Checkout" method="post">
+                <button type="submit" class="btn btn-warning btn-lg px-5 fw-bold rounded-pill mt-2">
+                    CHECKOUT
+                </button>
+            </form>
+        </div>
+    }
+</div>
